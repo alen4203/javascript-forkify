@@ -36,7 +36,7 @@ const controlSearchResults = async function () {
     resultsView.renderSpinner();
 
     // 1) Get search query
-    query = searchView.getQuery();
+    const query = searchView.getQuery();
     if (!query) return;
 
     // 2) Get search results
