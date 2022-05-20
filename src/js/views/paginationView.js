@@ -19,18 +19,27 @@ class PaginationView extends View {
     const totalPage = Math.ceil(search.results.length / search.resultsPerPage);
     // Page 1, and there are other pages
     if (curPage === 1 && totalPage > 1)
-      return this._generateMarkupBtn(curPage, 1);
+      return `${this._generateMarkupBtn(
+        curPage,
+        1
+      )}${this._generateMarkupTotalPages(totalPage)}`;
     // Last page
     if (curPage === totalPage && totalPage > 1)
-      return this._generateMarkupBtn(curPage, -1);
+      return `${this._generateMarkupBtn(
+        curPage,
+        -1
+      )}${this._generateMarkupTotalPages(totalPage)}`;
     // Other page
     if (curPage < totalPage)
-      return `${this._generateMarkupBtn(curPage, -1)}${this._generateMarkupBtn(
+      return `${this._generateMarkupBtn(
+        curPage,
+        -1
+      )}${this._generateMarkupTotalPages(totalPage)}${this._generateMarkupBtn(
         curPage,
         1
       )}`;
     // Page 1, and there are NO other pages
-    return '';
+    return `${this._generateMarkupTotalPages(totalPage)}`;
   }
   _generateMarkupBtn(curPage, next) {
     return `
@@ -45,6 +54,11 @@ class PaginationView extends View {
             </svg>
         </button>
     `;
+  }
+  _generateMarkupTotalPages(total) {
+    return `<span class="total-pages">${total} ${
+      total > 1 ? 'Pages' : 'Page'
+    }</span>`;
   }
 }
 

@@ -12,13 +12,21 @@
 .pagination {
   margin-top: auto;
   padding: 0 3.5rem;
-
+  position: relative;
   &::after {
     content: '';
     display: table;
     clear: both;
   }
-
+  & .total-pages {
+    color: $color-primary;
+    font-size: 1.3rem;
+    font-weight: 600;
+    padding: 0.8rem 1.2rem;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+  }
   &__btn {
     &--prev {
       float: left;
