@@ -104,7 +104,8 @@
   }
 }
 
-.bookmarks {
+.bookmarks,
+.shopping-cart {
   padding: 1rem 0;
   position: absolute;
   // right: 0;
@@ -118,6 +119,8 @@
   opacity: 0;
   transition: all 0.5s 0.2s;
 
+  max-height: 40rem;
+  overflow: auto;
   &__list {
     list-style: none;
   }
@@ -137,7 +140,8 @@
   }
 
   &:hover,
-  .nav__btn--bookmarks:hover + & {
+  .nav__btn--bookmarks:hover + &,
+  .nav__btn--shopping-cart:hover + & {
     visibility: visible;
     opacity: 1;
   }

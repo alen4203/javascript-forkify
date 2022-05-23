@@ -11,6 +11,7 @@ export const state = {
     resultsPerPage: RES_PER_PAGE,
   },
   bookmarks: [],
+  cart: [],
 };
 
 const createRecipeObject = function (data) {
@@ -38,6 +39,12 @@ export const loadRecipe = async function (id) {
 
     if (state.bookmarks.some(b => b.id === id)) state.recipe.bookmarked = true;
     else state.recipe.bookmarked = false;
+
+    if (state.cart.some(c => c.id === id)) state.recipe.addedToCart = true;
+    else {
+      state.recipe.addedToCart = false;
+      state.recipe.ingredients.forEach(ing => (ing.checked = false));
+    }
   } catch (error) {
     console.error(`${error} 💥️💥️💥️`);
     throw error;
@@ -114,8 +121,10 @@ export const removeBookmark = function (id) {
 };
 
 const init = function () {
-  const storage = localStorage.getItem('bookmarks');
-  if (storage) state.bookmarks = JSON.parse(storage);
+  const storageBookmarks = localStorage.getItem('bookmarks');
+  const storageCart = localStorage.getItem('cart');
+  if (storageBookmarks) state.bookmarks = JSON.parse(storageBookmarks);
+  if (storageCart) state.cart = JSON.parse(storageCart);
 };
 init();
 
@@ -153,4 +162,41 @@ export const uploadRecipe = async function (newRecipe) {
   } catch (error) {
     throw error;
   }
+};
+
+const persistCart = function () {
+  localStorage.setItem('cart', JSON.stringify(state.cart));
+};
+
+export const addToCart = function (recipe) {
+  // Add recipe to cart
+  state.cart.push(recipe);
+  if (state.recipe.id === recipe.id) state.recipe.addedToCart = true;
+
+  persistCart();
+};
+
+export const removeFromCart = function (id) {
+  const index = state.cart.findIndex(rec => rec.id === id);
+  // Reset all the ingredients' 'checked' status
+  state.cart[index].ingredients.forEach(ing => (ing.checked = false));
+  // Remove recipe from cart
+  state.cart.splice(index, 1);
+
+  if (state.recipe.id === id) state.recipe.addedToCart = false;
+
+  persistCart();
+};
+
+export const checkIngredient = function (ingDescription, ofRecipe) {
+  const recipe = state.cart.find(rec => rec.id === ofRecipe);
+  // Find the ingredient being checked from the recipe
+  const ingredient = recipe.ingredients.find(
+    ing => ing.description === ingDescription
+  );
+
+  // Change the ingredients' 'checked' status
+  ingredient.checked = ingredient.checked ? false : true;
+
+  persistCart();
 };

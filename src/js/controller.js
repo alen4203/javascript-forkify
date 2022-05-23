@@ -9,6 +9,7 @@ import addRecipeView from './views/addRecipeView.js';
 
 import 'core-js/stable'; // polifilling others
 import 'regenerator-runtime/runtime'; // polifilling async await
+import cartView from './views/cartView.js';
 
 const controlRecipes = async function () {
   try {
@@ -119,11 +120,36 @@ const controlAddRecipe = async function (newRecipe) {
   }
 };
 
+const controlAddToCart = function () {
+  // Add / Remove recipe to / from cart
+  if (!model.state.recipe.addedToCart) model.addToCart(model.state.recipe);
+  else model.removeFromCart(model.state.recipe.id);
+
+  // Update the addToCart btn style
+  recipeView.update(model.state.recipe);
+
+  // Re-render cartView
+  if (model.state.cart.length === 0) cartView.renderErrorMessage();
+  else cartView.render(model.state.cart);
+};
+
+const controlCart = function () {
+  if (model.state.cart.length > 0) cartView.render(model.state.cart);
+};
+
+const controlCheckIngredient = function (ingDescription, ofRecipe) {
+  model.checkIngredient(ingDescription, ofRecipe);
+  cartView.update(model.state.cart);
+};
+
 const init = function () {
   bookmarksView.addHandlerRender(controlBookmark);
+  cartView.addHandlerRender(controlCart);
+  cartView.addHandlerCheckIngredient(controlCheckIngredient);
   recipeView.addHandlerRender(controlRecipes);
   recipeView.addHandlerUpdateServings(controlServings);
   recipeView.addHandlerAddBookmark(controlAddBookmark);
+  recipeView.addHandlerAddToCart(controlAddToCart);
   searchView.addHandlerSearch(controlSearchResults);
   paginationView.addHandlerClick(controlPagination);
   addRecipeView.addHandlerSubmitRecipe(controlAddRecipe);

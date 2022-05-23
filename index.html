@@ -37,6 +37,55 @@
         <nav class="nav">
           <ul class="nav__list">
             <li class="nav__item">
+              <button class="nav__btn nav__btn--shopping-cart">
+                <svg class="nav__icon">
+                  <use href="src/img/icons.svg#icon-cart"></use>
+                </svg>
+                <span>Shopping Cart</span>
+              </button>
+              <div class="shopping-cart">
+                <ul class="shopping-cart__list">
+                  <div class="message">
+                    <div>
+                      <svg>
+                        <use href="src/img/icons.svg#icon-alert-triangle"></use>
+                      </svg>
+                    </div>
+                    <p>
+                      No items in the shopping cart yet. Find a nice recipe and
+                      add the ingredients in :)
+                    </p>
+                  </div>
+                  <!-- <li class="shopping-cart__item">
+                    <div class="shopping-cart__item-title">
+                      <figure class="shopping-cart__item-fig">
+                        <img src="src/img/favicon.png" alt="Test" />
+                      </figure>
+                      <h4 class="shopping-cart__item-name">Fantastic Pasta</h4>
+                    </div>
+                    <ul class="shopping-cart__item-ingredients">
+                      <li class="crossed">
+                        <input
+                          type="checkbox"
+                          class="ingredients__checkbox"
+                        />1/2 kg Noodles
+                      </li>
+                      <li>
+                        <input type="checkbox" class="ingredients__checkbox" />1
+                        Pack Shrimp
+                      </li>
+                      <li>
+                        <input
+                          type="checkbox"
+                          class="ingredients__checkbox"
+                        />salt
+                      </li>
+                    </ul>
+                  </li> -->
+                </ul>
+              </div>
+            </li>
+            <li class="nav__item">
               <button class="nav__btn nav__btn--add-recipe">
                 <svg class="nav__icon">
                   <use href="src/img/icons.svg#icon-edit"></use>
@@ -203,6 +252,11 @@
           <button class="btn--round">
             <svg class="">
               <use href="src/img/icons.svg#icon-bookmark-fill"></use>
+            </svg>
+          </button>
+          <button class="btn--round btn--cart">
+            <svg class="">
+              <use href="${icons}#icon-cart-fill></use>
             </svg>
           </button>
         </div>
