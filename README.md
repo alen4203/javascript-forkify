@@ -12,3 +12,5 @@ Functions includes but not restricted to:
 - add recipes to bookmarks
 - add custom recipes  
   The app has been deployed [here](https://forkify-alench.netlify.app/), please give it a try!
+
+Originated from a course on Udemy.
